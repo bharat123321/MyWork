@@ -4,7 +4,7 @@ namespace App;
 use App\Friend\Friendable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Cache;
 class User extends Authenticatable
 {
      use Friendable;
@@ -47,7 +47,18 @@ class User extends Authenticatable
     return $this->hasOne('App\view');
   }
   
-   public function friendship(){
-        return $this->hasMany('App\friendships');
+   
+    public function friendship(){
+    return $this->belongsToMany('App\User','friendships','user_requested','acceptor')->where('status',1);
+  }
+    public function isOnline(){
+        return Cache::has('user-is-online'.$this->id);
     }
+     public function friendsof(){
+    return $this->belongsToMany('App\User','friendships','acceptor','user_requested')->where('status',1);
+  }
+public function addfriendes(){
+    return $this->friendship->merge($this->friendsof);
+    // return $this->friendsofMine()->get()->merge($this->friendsof()->get());
+  }
 }

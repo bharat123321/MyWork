@@ -19,7 +19,7 @@ class CreateMessengersTable extends Migration
             $table->integer('acceptor_id');
             $table->string('message');
             $table->boolean('status');
-            
+            $table->timestamps();
         });
     }
 

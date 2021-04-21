@@ -17,6 +17,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link rel="icon" type="image/icon" href="upload/image/title_design.jpg">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
       <!-- <link href="{{ asset('/css/story.css') }}" rel="stylesheet"> -->
      <!-- Scripts -->
@@ -44,8 +45,7 @@
         }
 
         ul {
-            margin: 0;
-            padding: 0;
+            
         }
 
         li {
@@ -77,9 +77,23 @@
 
         .pending {
             position: absolute;
-            left: 13px;
-            top: 9px;
+            left: 0px;
+            top: 0px;
             background: #b600ff;
+            margin: 0;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            padding-left: 5px;
+            color: #ffffff;
+            font-size: 12px;
+        }
+        .online{
+          position: absolute;
+            left: 0px;
+            top: 0px;
+            background: green;
             margin: 0;
             border-radius: 50%;
             width: 18px;
@@ -113,24 +127,34 @@
             height: 536px;
             background: #eeeeee;
         }
-
+        .message-wrap{
+          padding: 10px;
+            height: 536px;
+            background: white;
+            border-radius:10px 10px;
+        }
         .messages .message {
             margin-bottom: 15px;
         }
-
+     
         .messages .messagess{
             margin-bottom: 0;
         }
-
+       .messages .mess{
+          margin-bottom: 15px;
+        }
         .received, .sent {
-            width: 45%;
-            padding: 3px 3px;
+             display: inline-block;
+            padding: 4px 6px;
             border-radius: 20px;
         }
 
         .received {
             background: black;
             color: white;
+            font-size: 24px;
+            text-align: center;
+            font-weight: bold;
             margin-left:40px;
         }
 
@@ -138,6 +162,9 @@
             background:skyblue;
             float: right;
             text-align: right;
+            color:white;
+            font-weight: bold;
+            font-size: 24px;
         }
         
 
@@ -189,7 +216,7 @@ width: 100px;
   }
   .replyincomment{
     position: relative;
-    top:-20px;
+    top:-10px;
     left:50px;
   }
   .replyincomment a{
@@ -198,12 +225,333 @@ width: 100px;
    .replyincomment a:hover{
     color:skyblue;
    }
+   #addfriend_sent{
+    background: blue;
+    text-decoration: none;
+    display: inline-block;
+    padding:5px;
+    border-radius: 50px;
+    color:white;
+    position: relative;
+    top: -10rem;
+    cursor: pointer;
+   
+   }
+   #addfriend_sent:hover{
+    background-color: darkblue;
+   }
+  #addfriend_s{
+    background: gray;
+    text-decoration: none;
+    display: inline-block;
+    padding:5px;
+    border-radius: 50px;
+    color:white;
+    position: relative;
+    top: -10rem;
+    cursor: pointer;
+     text-align: center;
+   }
+   #addfriend_s:hover{
+    background-color: darkgray;
+   }
+    #delete_friend_sent{
+    background: darkred;
+    text-decoration: none;
+    display: inline-block;
+    padding:5px;
+    border-radius: 50px;
+    color:white;
+    position: relative;
+    top: -10rem;
+    cursor: pointer;
+    text-align: center;
+   }
+   #delete_friend_sent:hover{
+    background-color: brown;
+   }
+   #block_friend{
+     background: gray;
+    text-decoration: none;
+    display: inline-block;
+    padding:5px;
+    border-radius: 50px;
+    color:white;
+    position: relative;
+    top: -10rem;
+    cursor: pointer;
+     text-align: center;
+   }
+   #block_friend:hover{
+    background-color: darkgray;
+   }
+   #UnBlock{
+     background: white;
+    text-decoration: none;
+    display: inline-block;
+    padding:5px;
+    border-radius: 50px;
+    color:black;
+    position: relative;
+    top: -10rem;
+    cursor: pointer;
+     text-align: center;
+   }
+   #UnBlock:hover{
+    background: darkgray;
+    color:white;
+   }
+   
+   .name_design{
+    color:black;
+    margin:10px 5px;
+    font-size:2.2vw;
+   }
+   .total_post{
+    color:black;
+    float: right;
+    position: relative;
+    top:-5vw;
+    font-size: 2vw;
+   }
+   .total_friend{
+    color:black;
+    float: right;
+    position: relative;
+    top:-3vw;
+    left:4em;
+     font-size: 2vw;
+   } 
+   .get_reply_form{
+     position: relative;
+     bottom: 0px;
+   }
+   .model{
+    
+    position: absolute;
+     z-index: 1050;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+     
+}
+.modal_content{
+  width: 50%;
+    position: fixed;
+    top: -5px;
+     background-color: #fff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    display: none;
+   z-index: 50px;
+}
+#close{
+  float: right;
+  position: relative;
+  top: -60px;
+}
+   @media only screen and (max-width:1243px ) and (min-width: 992px){
+     #delete_friend_sent{
+        position: relative;
+        top:-9rem;
+     }
+     #block_friend{
+       position: relative;
+        top:-9rem;
+     }
+     #UnBlock{
+        position: relative;
+        top:-9rem;
+     }
+   }
+   @media only screen and (max-width:390px ){
+     #addfriend_sent{
+        position: relative;
+        top: -8rem;
+        left: 2rem;
+     }
+     #delete_friend_sent{
+        position: relative;
+        top:-8rem;
+        left: 2rem;
+     }
+     #addfriend_s{
+      position: relative;
+        top: -8rem;
+        left: 2rem;
+     }
+     #block_friend{
+       position: relative;
+        top: -8rem;
+        left: 2rem;
+     }
+     #UnBlock{
+        position: relative;
+         top: -8rem;
+        left: 2rem;
+     }
+   }
+   @media only screen and (max-width:360px ) {
+    #addfriend_sent{
+        position: relative;
+        left: 2.5rem;
+        font-size: 3vw;
+     }
+     #addfriend_s{
+       position: relative;
+        left: 2.5rem;
+        font-size: 3vw;
+     }
+     #delete_friend_sent{
+        position: relative;
+        left: 2.5rem;
+         font-size: 3vw;
+     }
+      #block_friend{
+       position: relative;
+        left: 2.5rem;
+         font-size: 3vw;
+         top: -8rem;
+     }
+     #UnBlock{
+        position: relative;
+         left: 2.5rem;
+         font-size: 3vw;
+         top:-8rem;
+     }
+   }
+  @media only screen and (max-width:900px){
+    .aboutdesing{
+        position: relative;
+        top:-30px;
+    }
+  }
+
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+    float: right;
+    position: absolute;
+    right: 0px;
+    bottom: 1px;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    width: 20%;
+    border-radius: 10%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+
+
+
+
     </style>
 
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+       
+    <nav class="navbar navbar-inverse navbar-fixedb-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -214,7 +562,7 @@ width: 100px;
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
+                    
                     <!-- Branding Image 
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
@@ -228,20 +576,25 @@ width: 100px;
                     </ul>
                         
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar">
+                    <ul class="nav nav-tabs navbar">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                        
                         <!-- profile image  !-->
-                            <a href="/profile">  <img src="/uploads/avatar/{{Auth::user()->avatar}}" style="width:50px; height:50px; float:left; margin-left:-55px; margin-top:5px; border-radius:50%; "></a>
+                            <a href="/profile">  <img src="/uploads/avatar/{{Auth::user()->avatar}}" style="width:50px; height:50px; float:left; margin-top:5px; border-radius:50%; "></a>
                            
                             <!-- upload image in navigation bar  !-->
-                            <a href="/showposts ">  <img src="/upload/image/home.jpg" style="width:50px; height:50px; float:center; margin-top:5px; cursor:pointer;border-radius:20%;"></a>
+                            <a href="/showposts ">  <img src="/upload/image/IMG_20210206_194055.jpg" style="width:50px; height:50px; float:center; margin-top:5px; cursor:pointer;border-radius:20%;"></a>
+
+                        
+                               
+
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="margin-top:5px;">
-                                    {{strtoupper(Auth::user()->firstname )}} <span class="caret"></span>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"   style="margin-top:5px;">
+                                    {{strtoupper(Auth::user()->firstname )}}<span class="caret"></span>
                                 </a>
                                     
                                 <ul class="dropdown-menu" role="menu">
@@ -267,39 +620,16 @@ width: 100px;
                                     </li>
                                 </ul>
                             </li>
-                             
-                            <!-- About search   !-->
-                            
-                         <div class="col-md-4">
-                         <div class="form-group">
-                                <form method="get" id="form-data" data-route ="/search">
-                                   
-                                    <input type="text" name="search"  placeholder="Search your friend name" class="submit" style="margin-left: 600px; margin-top: 10px;">
-                               
- </form>
- 
-
-                                 
-                            </div>
-                         
-                         </div> 
-                            
-                                    
-                                 <!-- From here Messenger  -->
-
-
-                                 <a href="{{url('message/')}}"  style="position: relative; left:-300px" class="btn btn-primary" >Messenger </a>
-
-
-                                 <!-- To here messenger -->
+                              
                         @endif
                     </ul>
                 </div>
-                                            
                          
-
+ 
             </div>
         </nav>
+             
+           
 
         @yield('content')
     </div>
@@ -309,131 +639,15 @@ width: 100px;
  
  
   <!-- <script src="http://js.pusher.com/3.1/pusher.min.js"></script> -->
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="js/juall.js"></script>
- <script type="text/javascript" src="js/searched.js"></script>
- <script type="text/javascript" src="js/showsearch.js"></script>
-<script type="text/javascript" src="{{asset('/js/main.js')}}"></script>
-  <script type="text/javascript" src="{{asset('/js/liked.js')}}"></script>
-
-    <!-- Scripts --> 
-     <!-- Scripts for searching --> 
-     <script>
-       $(function(){
-       $( "#datapicker" ).datepicker(); 
-       
-    });
+<script type="text/javascript" src="http://laravel/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="http://laravel/js/juall.js"></script>
+<script type="text/javascript" src="http://laravel/js/showlike.js"></script>
+<script type="text/javascript" src="{{asset('/js/dislike.js')}}" ></script>
  
- 
- 
-  $(function() {
-    var progressbar = $( "#progressbar" ),
-      progressLabel = $( ".progress-label" );
-
-    progressbar.progressbar({
-      value: false,
-      change: function() {
-        progressLabel.text( progressbar.progressbar( "value" ) + "%" );
-      },
-      complete: function() {
-        progressLabel.text( "Complete!" );
-      }
-    });
-
-    function progress() {
-      var val = progressbar.progressbar( "value" ) || 0;
-
-      progressbar.progressbar( "value", val + 1 );
-
-      if ( val < 99 ) {
-        setTimeout( progress, 100 );
-      }
-    }
-
-    setTimeout( progress, 3000 );
-  });
-  </script> 
+   <script type="text/javascript">
     
- 
-<script>
-    var receiver_id = '';
-    var my_id = "{{ Auth::id() }}";
-    $(document).ready(function () { 
-        //ajax setup form csrf token
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-         // Enable pusher logging - don't include this in production
-    // Pusher.logToConsole = true;
-
-    // var pusher = new Pusher('324632694f4a7cf27d7a', {
-    //   cluster: 'ap2'
-    // });
-
-    // var channel = pusher.subscribe('my-channel');
-    // channel.bind('my-event', function(data) {
-    //   alert(JSON.stringify(data));
-    // });
-
-                 $('.user').click(function() {
-                    $('.user').removeClass('active');
-                    $(this).addClass('active');
-                    receiver_id = $(this).attr('id');
-                    $.ajax({
-                type: "get",
-                url: "messaged/" + receiver_id, // need to create this route
-                data: "",
-                cache: false,
-                success: function (data) {
-                     alert(data)
-                    $('#messages').html(data);
-                    scrollToBottomFunc();
-                    
-                }
-            });
-                 });
-
-
-        $(document).on('keyup', '.input-text input', function (e) {
-            var message = $(this).val();
-     // check if enter key is pressed and message is not null also receiver is selected
-            if (e.keyCode == 13 && message != '' && receiver_id != '') {
-                 
-                $(this).val(''); // while pressed enter text box will be empty
-
-                var datastr = "receiver_id=" + receiver_id + "&message=" + message;
-                 
-                $.ajax({
-                    type: "post",
-                    url: "messaged", // need to create this post route
-                    data: datastr,
-                    cache: false,
-                     success: function (data) {
-                           
-                    },
-                    error: function (jqXHR, status, err) {
-                    },
-                    complete: function () {
-                        scrollToBottomFunc();
-                    },
-                     
-                });
-            }
-        });
-
-        });
-
-    function scrollToBottomFunc (){
-        $('.message-wrapper').animate({
-             scrollTop: $('.message-wrapper').get(0).scrollHeight},50);    }
-    
-</script>
-  <script>
 // Get the modal
-var modal = document.getElementById('story_fetch');
+var modal = document.getElementById('id01');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -441,9 +655,512 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-</script> 
  
+   </script>
+
+    <!-- Scripts --> 
+      <script type="text/javascript">
+        $(document).ready(function(){
+         $('.add_sent').click(function(){
+            received = $(this).attr('value');
+            
+           $vm = $(this);
+            $.ajax({
+                    type: "get",
+                    url: "/addFriend/"+received, // need to create this post route
+                    data: '' ,
+                    cache: false,
+                     beforeSend:function(){
+                     $vm.text('Please Wait..');
+                    
+                 },
+                     success: function (data) {
+                          // $('.add_sent').html(data);
+                          
+                    },
+                    error: function (jqXHR, status, err) {
+                    },
+                    complete: function () {
+                       
+                $vm.text("Sending Req").css('background','gray');
+                         
+                    },
+                     
+                });
+         });
+          $('.delete_sent').click(function(){
+           received = $(this).attr('value');
+           $vm = $(this);
+            $.ajax({
+                    type: "get",
+                    url: "/unfriend/"+received, // need to create this post route
+                    data: '' ,
+                    cache: false,
+                    beforeSend:function(){
+                     
+                  // $('.delete_sent').html("please wait......");
+                  $vm.text('Please Wait....');
+               
+                   },
+                     success: function (data) {
+                          $('.addinfo').html(data);
+                          
+                    },
+                    error: function (jqXHR, status, err) {
+                    },
+                    complete: function () {
+                      // $('.add_sent').text("Add Friend").css('background','blue');
+
+                   $vm.siblings('.add_sent').text("Add Friend").css('background','blue');
+                    
+                         $vm.text('Delete Friend');
+                    },
+                     
+                });
+         });
+          $('.block_sent').click(function(){
+           received = $(this).attr('value');
+
+           $vm = $(this);
+               
+            $.ajax({
+                    type: "get",
+                    url: "/block/"+received, // need to create this post route
+                    data: '' ,
+                    cache: false,
+                    beforeSend:function(){
+                     
+                  // $('.delete_sent').html("please wait......");
+                  $vm.text('Please Wait....');
+                   },
+                     success: function (data) {
+                           
+                         
+                    },
+                    error: function (jqXHR, status, err) {
+                    },
+                    complete: function () {
+                      $vm.text("Block Friend").css('background','gray').css('color','white').width(100);
+                   $('.block_sent').css('display','none');
+                          $('.unblock_sent').css('display','block');
+                   },
+                     
+                });
+           });
+          $('.unblock_sent').click(function(){
+           received = $(this).attr('value');
+           $vm = $(this);
+            
+              
+            $.ajax({
+                    type: "get",
+                    url: "/unblock/"+received, // need to create this post route
+                    data: '' ,
+                    cache: false,
+                    beforeSend:function(){
+                     
+                  // $('.delete_sent').html("please wait......");
+                  $vm.text('Please Wait....');
+               
+                   },
+                     success: function (data) {
+                      
+                    
+                      
+                          
+                    },
+                    error: function (jqXHR, status, err) {
+                    },
+                    complete: function () {
+                         $vm.text("UnBlock Friend").css('background','white').css('color','black').width(100);
+                          $('.unblock_sent').css('display','none'); 
+                       $('.block_sent').css('display','block');
+                             
+                
+                   },
+                     
+                });
+           });
+        });
+
+      </script>
+     
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.fetch_all_photo').click(function(){
+          var s = $(this).attr('id');
+          
+                 $.ajax({
+                   type:'get',
+                   url:'/fetch_all_photo/'+s,
+                   data:'',
+                   cache:false,
+                   beforeSend:function(){
+                   
+                   },
+                   success:function(data){
+                 $('#showphoto').html(data);
+                   },
+                 })
+        });
+         $('.fetch_all_video').click(function(){
+          var s = $(this).attr('id');
+                 $.ajax({
+                   type:'get',
+                   url:'/fetch_all_video/'+s,
+                   data:'',
+                   cache:false,
+                   beforeSend:function(){
+                   
+                   },
+                   success:function(data){
+                 $('#showphoto').html(data);
+                   },
+                 })
+        });
+         $('.fetch_all_friend').click(function(){
+                 $.ajax({
+                   type:'get',
+                   url:'/fetch_all_friend/',
+                   data:'',
+                   cache:false,
+                   beforeSend:function(){
+                   
+                   },
+                   success:function(data){
+                 $('#showphoto').html(data);
+                   },
+                 })
+        });
+      });
+    </script>
+ 
+   <script type="text/javascript">
+      $(document).ready(function(){
+        $('.replytocomment').click(function(){
+           var name = $(this).attr('value');
+            var ats = $(this).attr('data-id'); 
+            var datas = "firstname"+name;
+             
+            $.ajax({
+             type:'get',
+             url:'/repldesign/'+ats+'/'+name,
+             data:datas,
+             cache:false,
+            success:function(data){
+              // alert(data)
+              $('#get_reply_form').html(data);
+             $('.modal_content').css('display','block').fadeIn(300);
+                    $('#close').click(function(){
+                 $('.modal_content').css('display','block').fadeOut(300);
+              })
+           }
+           })
+        })
+         $('.Fromcomment').click(function(){
+          
+            var id = $(this).attr('id'); 
+             
+            $.ajax({
+             type:'get',
+             url:'/commentdesign/'+id,
+             data:'',
+             cache:false,
+            success:function(data){
+              $('#get_reply_form').html(data);
+              $('.modal_content').css('display','block').fadeIn(300);
+               $('#close').click(function(){
+                 $('.modal_content').css('display','block').fadeOut(300);
+              })
+            
+           }
+           })
+        })
+
+                $('.Fromcomment_delete').click(function(){
+            var id = $(this).attr('id');
+              
+             $vm = $(this);
+             $.ajax({
+                type:'get',
+                url:'/comment_delete/'+id,
+                data:'',
+                cache:false,
+                success:function(data){
+
+                  if(data.s = true){ 
+                  $vm.siblings('.Delete_comment_from_ajax').text('ljsf');
+                    }
+                      
+                 }
+             })
+
+         })
+            $('.From_reply_delete').click(function(){
+            var id = $(this).attr('id');
+              var post_id =$(this).attr('post-rep');
+              
+             $vm = $(this);
+             $.ajax({
+                type:'get',
+                url:'/reply_delete/'+id,
+                data:'',
+                cache:false,
+                success:function(data){
+
+                    window.location = "http://laravel/comment/"+post_id;
+                 }
+             })
+
+        })  
+          $('.From_full_image_comment').click(function(){
+          
+            var id = $(this).attr('id'); 
+           $.ajax({
+             type:'get',
+             url:'/commentfulldesign/'+id,
+             data:'',
+             cache:false,
+            success:function(data){
+             $('#get_reply_form').html(data);
+              $('.modal_content').css('display','block').fadeIn(300);
+               $('#close').click(function(){
+                 $('.modal_content').css('display','block').fadeOut(300);
+              })
+            
+           }
+           })
+        })
+          
+          $('.From_full_image_comment_del').click(function(){
+          
+            var id = $(this).attr('id'); 
+            var video = $(this).attr('post-video');
+            var image = $(this).attr('post-image');
+                 
+           $.ajax({
+             type:'get',
+             url:'/comment_del_fulldesign/'+id,
+             data:'',
+             cache:false,
+            beforeSend:function(){
+               if(image !=''){ 
+             window.location = "http://laravel/showfull_image/"+id+"/"+image;
+           }
+           else{
+             window.location = "http://laravel/showfull_image/"+id+"/"+video;
+           }
+
+           
+           }
+           })
+        })
+
+          $('.full_replytocomment').click(function(){
+           var name = $(this).attr('value');
+            var ats = $(this).attr('data-id'); 
+            var datas = "firstname"+name;
+          
+            $.ajax({
+             type:'get',
+             url:'/full_repldesign/'+ats+'/'+name,
+             data:datas,
+             cache:false,
+            success:function(data){
+              // alert(data)
+              $('#get_reply_form').html(data);
+             $('.modal_content').css('display','block').fadeIn(300);
+                    $('#close').click(function(){
+                 $('.modal_content').css('display','block').fadeOut(300);
+              })
+           }
+           })
+        })
+
+
+         $('#close').click(function(){
+          alert('he')
+         });
+
+        //      function deleteComment(){ 
+        // alert('he')
+
+        //  }
+
+      })
+   </script>
+
+<script type="text/javascript">
+  var token = '{{Session::token()}}';
+  $(document).ready(function(){
+  $('.showliked').on('click',function(event) {
+    event.preventDefault();
+    postId = event.target.parentNode.parentNode.dataset['postid'];
+    var isLike = event.target.previousElementSibling == null;
+     receiver_id = $(this).attr('id') ;
+       image = $(this).attr('post-image');
+        video = $(this).attr('post-video');
+        
+                 $vm = $(this);
+     $.ajax({
+            method :'post',
+            url:'/likefullimage',
+            data:{isLike:isLike,receiver_id:receiver_id,_token:token,image:image,video:video},
+             
+          
+            success:function(data){
+               
+                $vm.siblings('span.liked').text(" Liked  " + data.result);
+               $vm.text('You like this post');
+                
+              }
+
+     })
+     .done(function(){ 
+           // event.target.innerText = isLike ?'You like this post':'Like';
+          
+     });
+              
+     });
+  $('.dislike').on('click',function(event){
+  
+   event.preventDefault();
+  receiver_id = $(this).attr('id');
+    var isLike = event.target.previousElementSibling == null;
+    action = $(this).data('type');
+    image = $(this).attr('post-image');
+    video = $(this).attr('post-video');
+  $vm = $(this);
+  $.ajax({
+    method:'post',
+    url:'/dislikefullimage',
+    data:{receiver_id:receiver_id,_token:token,image:image,video:video},
+    success:function(data){
+
+       $vm.siblings('span.liked').text(" Liked  " + data.result);
+            
+          
+
+       if(action == 'dislike'){
+             $vm.siblings('span.showliked').text(" Like");
+           // $('span.likessy').text('Like');
+           // $('span.likessy').text('Like');
+        // $('.likes').remove();
+        // $('.likessy').add();
+       }
+       else{
+        
+        alert('bhar');
+    }
+  }
+  })
+   
+   
+
+})
+
+   });
+</script>
+ <script type="text/javascript">
+   $(document).ready(function(){ 
+       
+         }) 
+   function deleteComment($post_id){ 
+       var post_id = $post_id;
+            
+             $vm = $(this);
+            $.ajax({
+                  type:'get',
+                  url:'/comment/'+post_id,
+                  data:'',
+                  cache:false,
+                
+                success:function(data){
+                    
+                    window.location = "http://laravel/comment/"+post_id;
+
+                 }
+             })
+                            
+
+               }
+                 
+ </script>
+    <script type="text/javascript">
+       
+       $(document).ready(function(){
+        $('.mutual_friend_show').click(function(){
+
+          var id = $(this).attr('id');
+          $.ajax({
+            type:'get',
+            url:'/show_mutual_friend/'+id,
+            data:'',
+            cache:false,
+            beforeSend:function(){
+           window.location = "http://laravel/show_mutual_friend/"+id;
+
+            },
+           success:function(data){
+             
+           }
+          })
+
+        })
+       })
+
+    </script>
     
-    
+ <!-- post -->
+<script type="text/javascript">
+ $(document).ready(function(){
+    $('.checkboxs').change(function(){
+       var count = $("input[name='tag_name[]']:checked").length;
+      
+        
+
+    })
+    $("#check_submit").on('click',function(){
+       $(this).addClass('#id01');
+       var token = '{{Session::token()}}';
+ var che = new Array();
+       var che = $('.checkboxs').attr('value');
+      
+        var mycheck = new Array();
+        var data = {'tag_name[]':[]};
+        $('input:checked').each(function(){
+             // data['tag_name[]'].push($(this).val());
+             mycheck.push($(this).val())
+        })
+        console.log(mycheck)
+          var count = $("input[name='tag_name[]']:checked").length;
+         if(count != 0){ 
+          $.ajax({
+             type:'get',
+             url:'/post_caption/'+mycheck,
+             data:'',
+             success:function(data){
+               $('#id01').hide();
+              $('.fetch_checkbox').html(data);
+             }
+          })
+        }
+        else{
+          mycheck = 0;
+          $.ajax({
+             type:'get',
+             url:'/post_caption/'+mycheck,
+             data:'',
+             success:function(data){
+               $('#id01').hide();
+              $('.fetch_checkbox').html(data);
+             }
+          })
+        }
+    })
+ })
+
+</script>
+
 </body>
 </html>

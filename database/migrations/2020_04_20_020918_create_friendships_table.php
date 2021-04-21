@@ -17,8 +17,9 @@ class CreateFriendshipsTable extends Migration
             $table->increments('id');
              $table->integer('user_requested');
             $table->integer('acceptor');
-            $table->boolean('status');
-            $table->integer('post_id');
+            $table->boolean('status')->nullable();
+            $table->integer('post_id')->nullable();
+            $table->integer('users_id');
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@ use App\Post;
 use App\comment;
 use App\Like;
 use App\friendship;
+use App\tag_caption;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
  use Carbon\Carbon;
@@ -23,10 +24,17 @@ class postController extends Controller
     {
          $posts = Post::all();
          $posts = Post::orderBy('created_at', 'desc')->get();
+        
+         $friend1 = DB::table('friendships')->where('status','!=',Null)->leftjoin('users','users.id','friendships.user_requested')->where('acceptor',Auth::user()->id)->get();
+
+          $friend2 = DB::table('friendships')->where('status','!=',Null)->leftjoin('users','users.id','friendships.acceptor')->where('user_requested',Auth::user()->id)->get();
+
+           $friend = array_merge($friend1->toArray(),$friend2->toArray());
+           $friendcheck = DB::table('friendships')->where('user_requested',Auth::user()->id)->orWhere('acceptor',Auth::user()->id)->get();
          // $countlike = Like::where(['like' => '1']);
          // $countdislike = Like::where(['like' => '0']);
         //  DB::table('users')->where('id')->update(['avatar'=>$filename]);
-     return view('post',array('user'=>Auth::user(),'post'=> $posts));
+     return view('post',array('user'=>Auth::user(),'post'=> $posts,'friend'=>$friend,'friendcheck'=>$friendcheck));
     }
     public function showpost(Request $request){
            $uid = Auth::user()->id;
@@ -36,6 +44,23 @@ class postController extends Controller
 
          return view('posts/index')->with('post',$posts)->with('users',$uid);
 
+    }
+
+    public function post_caption ($id)
+    { 
+          
+           $ch = explode(",",$id);
+           if($id !=0){ 
+         for ($i=0; $i <count($ch); $i++) { 
+            
+              $chek = DB::table('users')->where(['id'=>$ch[$i]])->get();
+              foreach ($chek as $key => $value) {
+                echo "<h5 style='position:relative;left:20px;word-wrap: break-word;'><b>". ucwords($value->firstname) . " " . ucwords($value->lastname) . "</b></h5>";
+                echo "<input type='hidden' name='tag_names[]' value=".$value->id.">";
+              }
+         }
+
+          }
     }
 
     /**
@@ -56,8 +81,18 @@ class postController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $video=$request->video; 
+{
+      //     $data = Validator::make($request->all(),[
+      //       'image'=>'required',
+      //       'image.*'=>'image|mimes:jpeg,png,jpg|max:20048'],
+      //       [
+      //           'image.*.max'=>'Sorry!Maximum allowed size for an image is 20MB',
+      //            'image.*.required'=>'Please uploads',
+
+      //     // 'video'=>'mimes:mp4,mp3|max:20000',
+      // ])->validate();
+
+    $video=$request->video; 
         if (isset($_POST['submit']) && empty($_POST['body']) 
                && empty($request->image) && empty($request->video)) {
 
@@ -67,31 +102,104 @@ class postController extends Controller
         $body= $request->body;
          
         $post = new Post;
-         $image=$request->image;
+         $img=$request->file('image');
           $post->body = $body;
-          $video=$request->video; 
-        
+          $video=$request->file('video'); 
            $post->created_at =\Carbon\Carbon::now()->toDateTimeString();
            $post->updated_at = \Carbon\Carbon::now()->toDateTimeString() ;
-        $post->user_id = Auth::user()->id;
+           $post->user_id = Auth::user()->id;
+           $post->post_option = $request->post_option;  
+           if($request->tag_names  == ''){ 
+             $post->tag_name = 0;
+         }
+           
+           
          if ($request->hasFile('image')) {
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-               $image->move("uploads/image",$filename);
-            $post->image = $filename;
+            $data = Validator::make($request->all(),[
+            'image'=>'required',
+            'image.*'=>'image|mimes:jpeg,png,jpg|max:20048'],
+            [
+                'image.*'=>'Please upload correct Image File',
+                'image.*.max'=>'Sorry!Maximum allowed size for an image is 20MB',
+                  
+       ])->validate();
+               $count_image = count($img);
+              foreach($img as $image){ 
             
+            $filename = $image->getClientOriginalName();
+            $fileextension = $image->getClientOriginalExtension();
+         
+            
+            
+              $image->move("uploads/image",$filename);
+              
+             $files[]= $filename;
+        // $file_ext[] = $fileextension;
+       
+      }
+
+       $post->count = $count_image;
+         $images = implode(",", $files); 
+       //  $img_ext = implode(",", $file_ext);
+          
+        $post->image = $images;
+         
              }
+           
             else if ($request->hasFile('video')) {
-            $filename = time() . '.' . $video->getClientOriginalExtension();
-               $video->move("uploads/video",$filename);
-            $post->video = $filename;
+                 $datas = Validator::make($request->all(),[
+            'video'=>'required',
+            'video.*'=>'mimes:mp4,mp3,webm'
+           ], [
+                'video.*'=>'Sorry!Please upload File in mp4,mp3 and webm',
+                
+       ])->validate();
+                $count_video = count($video);
+             foreach($video as $video){ 
+
+            $filenames =  $video->getClientOriginalName();
+                
+                       
+                    $video->move("uploads/video",$filenames);
+                    $fil[] = $filenames;
+                 
+                }
+               
+                $videos = implode(",", $fil);
+                  $post->video =  $videos;
+              
+                 $post->count_video = $count_video;
             
-             }
+            }
+          elseif($request->tag_names  != ''){ 
+               $post->tag_name = $request->tag_names;
+
+         } 
+          
              else{
                 echo 'skdj';
              }
+              
+              $post->save();
+
+        // if ($request->tag_names != '') {
+        //      $check = implode(",", $request->tag_names);
+        //     // $tag_caption = new tag_caption;
+        //     //  $tag_caption->Tag_To = $check; 
+        //     //  $tag_caption->Tag_By = Auth::user()->id;
+        //      foreach ($request->tag_names as  $value) {
+            
+        //         tag_caption::create([
+        //            'Tag_To' => $value,
+        //            'Tag_By' =>Auth::user()->id
+              
+        //         ]);
  
-             $post->save();
-         
+        //      }
+
+            
+
+        //    }
                 return back();
                  
                  
@@ -109,11 +217,17 @@ class postController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showimage($id)
     {
-        //
+         $posts =  Post::where('id',$id)->get();
+    return view('posts.showfull_image')->with('post',$posts);
+       
     }
-
+ 
+    public function showvideo($id){
+      $posts =  Post::where('id',$id)->get();
+    return view('posts.showfull_video')->with('post',$posts);
+    }
     /**
      * Show the form for editing the specified resource.
      *

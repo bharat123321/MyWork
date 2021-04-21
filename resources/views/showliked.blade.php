@@ -19,17 +19,21 @@
     @foreach($from_postid as $post) 
   <tr>
   <td><img src="/uploads/avatar/{{$post->avatar}}" style="width:50px; height:50px;border-radius:30%;"></td>
-    <td style="position:relative;right:120px;top:-15px;"><h2>{{$post->firstname }}</h2></td>
-    <td style="position:relative;right:90px;"><h2>like</td></h2></tr>
+    <td style="position:relative;right:70px;top:-15px;"><h2>{{$post->firstname }}</h2></td>
+    <td style="position:relative;right:90px;"><h2>like</h2></td>
+  </tr>
       
 @endforeach
 @else
-  <tr><td></td><td>No like yet</td>  
+  <tr><td></td><td>No like yet</td>  </tr>
   @endif
-</table>  
- 
-                              
-                                
+</table> 
+</div>
+</div>
+</div>
+</div>
+</div>
+                                 
 @endsection 
  
  

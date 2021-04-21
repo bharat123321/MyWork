@@ -1,61 +1,54 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery UI Progressbar - Custom Label</title>
-  <link rel="stylesheet" href="../../themes/base/jquery.ui.all.css">
-  <script src="../../jquery-1.10.2.js"></script>
-  <script src="../../ui/jquery.ui.core.js"></script>
-  <script src="../../ui/jquery.ui.widget.js"></script>
-  <script src="js/jquery.ui.progressbar.js"></script>
-  <link rel="stylesheet" href="css/ju1.css">
-  <style>
-  .ui-progressbar {
-    position: relative;
-  }
-  .progress-label {
-    position: absolute;
-    left: 50%;
-    top: 4px;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #fff;
-  }
-  </style>
-  <script>
-  $(function() {
-    var progressbar = $( "#progressbar" ),
-      progressLabel = $( ".progress-label" );
+ <!DOCTYPE html>  
+<html>  
+<head>  
+<script type="text/javascript" src="http://laravel/js/jquery-3.4.1.min.js"></script>
+    
+ <script>    
+$(document).ready(function(){    
+  $("button").click(function(){    
+    $("#div1").delay(1000).remove();    
+});    
+});    
+   
+ 
+$(document).ready(function(){  
+    $("#flip").click(function(){  
+        $("#panel").slideToggle("slow");  
+    });  
+ });
+$(document).ready(function(){  
+    $("button").click(function(){  
+        $("div").animate({  
+            height: 'toggle'  
+     });  
+    });  
+}); 
 
-    progressbar.progressbar({
-      value: false,
-      change: function() {
-        progressLabel.text( progressbar.progressbar( "value" ) + "%" );
-      },
-      complete: function() {
-        progressLabel.text( "Complete!" );
-      }
-    });
+</script>    
+</head>    
+<body>    
+<button>Click me</button><br>  
+<div style="height:100px;width:200px;padding:10px;margin:3px;border:1px solid blue;background-color:lightpink;"></div><br>  
+<style>   
+#panel, #flip {  
+    padding: 5px;  
+    text-align: center;  
+    background-color: #00FFFF;  
+    border: solid 1px #c3c3c3;  
+}  
+#panel {  
+    padding: 50px;  
+    display: none;  
+}  
+</style>  
+</head>  
+<body>  
+<div id="flip">Click to slide down panel</div>  
+<div id="panel">Hello javatpoint.com!   
+It is the best tutorial website to learn jQuery and other languages.</div>  
+<button>Start Animation</button>  
+ <div style="background:#98bf21;height:100px;width:100px;position:absolute;"></div>  
 
-    function progress() {
-      var val = progressbar.progressbar( "value" ) || 0;
-
-      progressbar.progressbar( "value", val + 1 );
-
-      if ( val < 99 ) {
-        setTimeout( progress, 100 );
-      }
-    }
-
-    setTimeout( progress, 3000 );
-  });
-  </script>
-</head>
-<body>
-
-<div id="progressbar"><div class="progress-label">Loading...</div></div>
-
-<div class="demo-description">
-<p>Custom updated label demo.</p>
-</div>
-</body>
-</html>
+</body>    
+</html>  
+ 

@@ -6,8 +6,8 @@
  <!-- Add stories -->
  <?php $user = Auth::user(); 
                 ?>
-               
-    <div class="container">
+        
+    <div class="container">     
 <div class="panel panel-default" style="margin-top:-20px;">
 <?php $user = Auth::user(); 
                 ?>
@@ -15,11 +15,16 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                             @else
+
+               
+ 
+
+
 <!-- it is used for size of panel -->
      <div class="panel-body" style="margin-top:-40px;" >
  <div class="panel-heading">
  <div style="border:1px solid gray; width:80px; height:80px; position:relative; top:20px;   margin-bottom:0px;  border-radius:50px;">
-<a href="#" style="width:auto;" onclick="document.getElementById('id01').style.display='block'"> <img src="/uploads/avatar/{{$user->avatar}}"class="img-thumbnail"  style="width:80px; height:80px;  border-radius:50%; margin-top:-12px; "></a></div> 
+<a href="#" style="width:auto;" onclick="document.getElementById('id01').style.display='block'"> <img src="/uploads/avatar/{{$user->avatar}}"class="img-thumbnail"  style="width:80px; height:80px;  border-radius:50%; margin-top:-12px; "></a> 
 <h4 style="position:relative; top:20px; ">Add to story</h4>
                  
 </div>
@@ -27,7 +32,10 @@
  </div>
  <!-- user name fetch -->
     
+    {{$count_store + count($friendstory)}} 
  
+  
+           
  @foreach($poststory as $poststory)
     
  @if($poststory->user_id == Auth::user()->id )
@@ -38,16 +46,16 @@
 <small style="width:100px; height:100px;position:relative;">{{ $poststory->formattedCreateDate() }}</small>
 <img src="/uploads/avatar/{{$user->avatar}}" style="width:40px; height:40px;position:relative;left:680px;top:-200px;border-radius:50%;margin: auto -20px; padding:auto; ">
 @endif
- <a href="/story/{{$poststory->id}}"> 
+ <a href="/story/{{$poststory->id}}" style="text-decoration: none;" > 
  
 <!-- story image -->
    @if($poststory->image != '')
-   <img src="/story_upload/images/{{ $poststory->image }}"  style="border:1px solid gray; width:120px; height: 120px;position:relative; top:-100px; left:140px;  margin:auto 0px; border-radius:10px; ">
+   <img src="/story_upload/images/{{ $poststory->image }}"  style="border:1px solid gray; width:120px; height: 120px;position:relative; top:-150px; left:140px;  margin:auto 0px; border-radius:10px; ">
   
   
    <!-- story top profile -->
 
- <img src="/uploads/avatar/{{$user->avatar}}" style="width:40px; height:40px;position:relative;left:40px;top:-200px;border-radius:50%;margin: auto -20px; padding:auto; ">
+ <img src="/uploads/avatar/{{$user->avatar}}" style="width:40px; height:40px;position:relative;left:37px;top:-190px;border-radius:50%;margin: auto -20px; padding:auto; ">
   @endif
   
  
@@ -59,13 +67,16 @@
     
 
   <!--  -->
+
   @foreach($friendstory as $friendstory)
     @if($user->id == $friendstory->acceptor)
     
      <a href="/story/{{$friendstory->id}}"> 
     @if($friendstory->id !='')
+    <!-- story image -->
   <img src="/story_upload/images/{{$friendstory->image }}"  style="border:1px solid gray; width:120px; height: 120px;position: absolute; top:85px;  margin:auto 142px; border-radius:10px; ">  </a>
-  <img src="/uploads/avatar/{{$friendstory->avatar}}" style="width:40px; height:40px;position:relative;left:105px;top:-198px;border-radius:50%;margin: auto 41px; padding:auto; ">
+  <!-- story top profile -->
+  <img src="/uploads/avatar/{{$friendstory->avatar}}" style="width:40px; height:40px;position:relative;left:100px;top:-190px;border-radius:50%;margin: auto 41px; padding:auto; ">
   @endif
  @endif
    
@@ -73,11 +84,13 @@
       @if($friendstory->id != '')
       <a href="/story/{{$friendstory->id}}" style="width:100px;"> 
         @if($friendstory->acceptor != "")
-       <h2 style="border:1px solid gray; width:120px; height: 120px;position: absolute; top:185px;    border-radius:10px;"> {{$friendstory->firstname}}  {{ $friendstory->id }}</h2>@endif
+       <!-- <h2 style="border:1px solid gray; width:120px; height: 120px;position: absolute; top:185px;    border-radius:10px;"> {{$friendstory->firstname}}  {{ $friendstory->id }}</h2 -->@endif
         @if($friendstory->image != '')
+        <!-- story image -->
       <img src="/story_upload/images/{{ $friendstory->image }}"  style="border:1px solid gray; width:120px; height: 120px;position: absolute; top:85px;  margin:auto 142px; border-radius:10px; ">
       @endif</a>
-      <img src="/uploads/avatar/{{$friendstory->avatar}}" style="width:40px; height:40px;position:relative;left:105px;top:-198px;border-radius:50%;margin: auto 41px; padding:auto; ">
+      <!-- story top profile -->
+      <img src="/uploads/avatar/{{$friendstory->avatar}}" style="width:40px; height:40px;position:relative;left:102px;top:-190px;border-radius:50%;margin: auto 41px; padding:auto; ">
        @endif
      @endif
   @endforeach
@@ -133,7 +146,7 @@
 
     @endif
     @if($post->video != '')
-         <video width="620" height="540" controls autoplay loop>  
+         <video width="100%" height="100%" controls>  
   <source src="/uploads/video/{{$post->video}}" type="video/mp4">  
     
 </video> 
@@ -142,37 +155,43 @@
         </div>
         <!--  like and dislike  !-->
         
-                   <div class="post" data-postid ="{{$post->id}}"> 
+                    <div class="post" data-postid ="{{$post->id}}"> 
                    <div class="interaction">
                    
-                    <?php   $check = DB::table('likes')->where('post_id',$post->id)->where('user_id',Auth::user()->id)->first();
-
-                           if($check == ''){ 
+                    <?php  $checks = DB::table('likes')->where('post_id',$post->id)->where('user_id',Auth::user()->id)->first();
+                    
+                           if($checks== ''){ 
 
                      ?>
-                     <div class="test">
-                       
-                     </div>
-               <a  href="{{url('showlike/'.$post->id.'/')}}" id="haha" class="badge" style="position:relative;top:-45px;" >   </a>
-     <a href="{{url('showlike/'.$post->id.'/')}}"     style="color:blue; position:relative;top:-43px; text-decoration: none"><span class="badge"> Liked {{$countlike->where('post_id',$post->id)->count()}}</span> </a>  
+                    
+           <span class="badge liked" id="{{$post->id}}" style="position:relative;top:-55px;cursor: pointer;">Liked {{$post->getlikes($post->id)}}</span> 
+     <!-- <a href="{{url('showlike/'.$post->id.'/')}}"  style="color:blue; position:relative;top:-43px; text-decoration: none"><span class="liked"> Liked {{$countlike->where('post_id',$post->id)->count()}}</span> </a>   -->
         <br>
-       
-             <a href="#" class="likey" id="{{$post->id}}"style="position: relative;top:-30px;text-decoration: none;"><span  class="btn btn-primary" >Like</span> </a> 
+         <!-- <a href="#" class="likessy" style="position: relative;top:-30px;text-decoration: none;"> -->
+          <span id="{{$post->id}}" class="btn btn-primary likessy"style="position: relative;top:-30px;text-decoration: none;" >Like</span>   
 
   <?php } else{ ?>
-                   
-
-
-                 <a  href="{{url('showlike/'.$post->id.'/')}}"><span class="badge" style="position:relative;top:-45px;" >Liked {{$post->likes->count()}} </span></a> <br> 
-                 <a href="#" class="likey" id="{{$post->id}}"><span  class="btn btn-primary" style="position: relative;top:-30px;">You like this post</span> </a>                                                                                                          
+                    <span class="badge liked" id="{{$post->id}}" style="position:relative;top:-45px; cursor: pointer;" >Liked {{$post->likes->count()}} </span>  <br> 
+                  <span id="{{$post->id}}" class="btn btn-primary likessy"  style="position:relative;top:-30px;">You like this post</span>                                                                                                          
                 <?php } ?>
-                 <a href="{{url('/dislike/'.$post->id.'/')}}"><span  style="position:relative;top:-30px; " class="btn btn-danger">Dislike</span></a>
+                
+               
+                <!--  <a href="#" class="likessy" id="{{$post->id}}"><span  class="btn btn-primary" style="position: relative;top:-30px;"> like</a></span>
+                  <span class="liked" style="position:relative;top:-55px;">{{$post->getlikes($post->id)}}</span>
+                   -->
+
+
+
+            
+
+                 <span class="btn btn-danger dislike" id="{{$post->id}}" data-type="dislike" style="position:relative;top:-30px; ">Dislike</span> 
                
                     <a href="{{url('/comment/'.$post->id)}}"><span  style="position:relative;top:-30px; " class="btn btn-primary">Comment ({{$post->comment->count()}})</span></a>
-                      <!--  // Get the total number of views -->
+                      
+                         <!--  Get the total number of views   -->
                      <a href="{{url('postview/'.$post->id.'/')}}">{{$post->postview->count()}}</a> ;
                     <br><br>
-                  </div>
+                  </div> 
                    
                                     
                                     <!-- Dynamic user comment form  !-->
@@ -231,7 +250,7 @@
                  <img src="/uploads/image/{{$friends->image}}"  height="50%"; width="70%";> 
                 @endif
                  @if($friends->video != '')
-         <video width="620" height="540" controls autoplay loop>  
+         <video width="100%" height="100%" controls autoplay loop>  
   <source src="/uploads/video/{{$friends->video}}" type="video/mp4">  
     
 </video> 
@@ -247,12 +266,21 @@
                     <?php $check = DB::table('likes')->where('post_id',$friends->id)->where('user_id',Auth::user()->id)->first();
                            if($check == false){ 
                      ?>
-                   <a href="{{url('showlike/'.$friends->id.'/')}}" style="color:blue; position:relative;top:-10px"> Liked by {{$countlike->where('post_id',$friends->id)->count()}} </a>  <br>
-            <li class="like" id="{{$friends->id}}"><span class="btn btn-primary"> Like  </span></li>
+                     <!-- liked count -->
+                  <!--  <a href="{{url('showlike/'.$friends->id.'/')}}" style="color:blue; position:relative;top:-10px"> Liked by {{$countlike->where('post_id',$friends->id)->count()}} </a> --> 
+                   <!-- like design -->
+               <span class="badge liked" id="{{$friends->id}}" style="position:relative;top:-55px;cursor: pointer;">Liked {{$countlike->where('post_id',$friends->id)->count()}}</span>
+
+            <!-- <li class="like" id="{{$friends->id}}"><span class="btn btn-primary"> Like  </span></li> -->
+             <span id="{{$friends->id}}" class="btn btn-primary likessy"style="position: relative;top:-30px;text-decoration: none;" >Like</span>   
                                                      
                <?php } else{ ?>
                  
-                    <a href="{{url('showlike/'.$friends->id.'/')}}" style=" position:relative;top:-35px"><span class="badge"> {{ Auth::user()->likes()->where('post_id', $friends->id)->first()->like== 1 ? 'You Liked This Post' : 'Like' }} {{$countlike->where('post_id',$friends->id)->count()}} </span>  </a>  <br>                                  
+                   <!--  <a href="{{url('showlike/'.$friends->id.'/')}}" style=" position:relative;top:-35px"><span class="badge"> {{ Auth::user()->likes()->where('post_id', $friends->id)->first()->like== 1 ? 'You Liked This Post' : 'Like' }} {{$countlike->where('post_id',$friends->id)->count()}} </span>  </a>      -->   
+                        <span class="badge liked" id="{{$friends->id}}" style="position:relative;top:-45px; cursor: pointer;" >Liked {{$countlike->where('post_id',$friends->id)->count()}} </span>  <br> 
+                  <span id="{{$friends->id}}" class="btn btn-primary likessy"  style="position:relative;top:-30px;">You like this post</span>       
+
+
                 <?php } ?>
 
                   @else
@@ -326,21 +354,31 @@
                     <?php $check = DB::table('likes')->where('post_id',$friends->id)->where('user_id',Auth::user()->id)->first();
                            if($check == ''){ 
                      ?>
-                    <a href="{{url('showlike/'.$friends->id.'/')}}"><span class="badge" style="position:relative;top:-40px;background-color: black; color:white;" >Liked {{$countlike->where('post_id',$friends->id)->count()}}</span> </a>    <br>
-              
-                 <li class="like" id="{{$friends->id}}"><span class="btn btn-primary" style="position: relative;top:-30px;"> Like 
-                 </span></li>  
+                     <!-- friend like count -->
+                <!--  <a href="{{url('showlike/'.$friends->id.'/')}}"><span class="badge" style="position:relative;top:-40px;background-color: black; color:white;" >Liked {{$countlike->where('post_id',$friends->id)->count()}}</span> </a>      -->
+
+                <!-- like design -->
+               <span class="badge liked" id="{{$friends->id}}" style="position:relative;top:-55px;cursor: pointer;">Liked {{$countlike->where('post_id',$friends->id)->count()}}</span>
+                 <!-- <li class="like" id="{{$friends->id}}"><span class="btn btn-primary" style="position: relative;top:-30px;"> Like  
+                 </span></li>  --> 
+                   <br>
+                  <span id="{{$friends->id}}" class="btn btn-primary likessy"style="position: relative;top:-30px;text-decoration: none;" >Like</span>   
+
                  <?php } else{ ?>
-         <a href="{{url('showlike/'.$friends->id.'/')}}" style="color:darkblue; position:relative;top:-40px"> <span class="badge">{{ Auth::user()->likes()->where('post_id', $friends->id)->first()->like== 1 ? 'You Liked This Post' : 'Like' }} {{$countlike->where('post_id',$friends->id)->count()}} </span></a>  <br>                                  
+         <!-- <a href="{{url('showlike/'.$friends->id.'/')}}" style="color:darkblue; position:relative;top:-40px"> <span class="badge">{{ Auth::user()->likes()->where('post_id', $friends->id)->first()->like== 1 ? 'You Liked This Post' : 'Like' }} {{$countlike->where('post_id',$friends->id)->count()}} </span></a> -->
+
+               <span class="badge liked" id="{{$friends->id}}" style="position:relative;top:-45px; cursor: pointer;" >Liked {{$countlike->where('post_id',$friends->id)->count()}} </span>  <br> 
+                  <span id="{{$friends->id}}" class="btn btn-primary likessy"  style="position:relative;top:-30px;">You like this post</span>                                                                
                 <?php } ?>
 
                   @else
                    <a href="{{url('/like/'.$friends->id.'/')}}"><span class="btn btn-primary"> Like   {{$countlike->where('post_id',$friends->id)->count()}}
                  </span></a>
                      @endif
-                    </a><a href="{{url('/dislike/'.$friends->id.'/')}}"  style="color:darkblue; position:relative;top:-30px"><span class="btn btn-danger">Dislike</span>
- </a>
+                    <!-- <a href="{{url('/dislike/'.$friends->id.'/')}}"  style="color:darkblue; position:relative;top:-30px"><span class="btn btn-danger">Dislike</span></a> -->
                      
+                     <span class="btn btn-danger dislike" id="{{$friends->id}}" data-type="dislike" style="position:relative;top:-30px; ">Dislike</span> 
+               
                           <?php $checkComment =  DB::table('comments')->where('post_id',$friends->id)->where('user_id',Auth::user()->id)->first();
                            if($checkComment == ''){?>
                      <a class="btn btn-primary" href="{{url('comment/'.$friends->id)}}" aria-hidden="true"  style="color:darkblue; position:relative;top:-30px">Comment({{$post->comment->count()}}) </a>
@@ -386,12 +424,12 @@
  
     </div>
 </div>
+
  </div>
 </div>
+     <div id="showsearch" style="position: relative; top: -580rem;"> </div>
 
- <div class="col-md-4"id="showsearch" style="position: fixed; left:780px; top:80px; ">
-      
- </div>
+ <!-- story -->
  <div id="id01" class="modal">
   
   <form class="modal-content animate" method="post" enctype="multipart/form-data" action="/story_uploads">
@@ -486,5 +524,6 @@ window.onclick = function(event) {
     
     var token = '{{Session::token()}}';
     var urlLike = "{{url('liked')}}" ;
-  </script>
+  var urldislike = "{{url('dislike')}}";                                                                                                                            
+</script>
  @endsection

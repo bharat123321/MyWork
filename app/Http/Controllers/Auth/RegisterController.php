@@ -67,6 +67,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+            if($data['gender'] == 'Female'){
+            $val = 'default1.jpg';
+            }
+            else{
+                $val = 'default.png';
+            }
+
         return User::create([
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
@@ -75,6 +82,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'address' => $data['address'],
             'gender' => $data['gender'],
+            'avatar'=>$val,
             'country' => $data['country'],
         ]);
     }

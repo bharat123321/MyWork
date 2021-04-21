@@ -1,25 +1,26 @@
- var receiver_id = '';
-    var my_id = "{{ Auth::id() }}";
+  
+  var my_id = "{{ Auth::id() }}";
     $(document).ready(function () { 
 
-        // ajax setup form csrf token
+       // ajax setup form csrf token
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        }); 
-                    
-                  $('.pimg').click(function(event) {
-                    alert(my_id);
-            //         $.ajax({
+        });
+                $(document).on('keyup', '#form-data input', function (e) {
+                 // var route = $('#form-data').data('route');
+                 // var search = $(this).val();
+                 //    var datastr = "search=" + search;
+                     alert("bharat");
+            //           $.ajax({
             //     type: "get",
-            //     url: "showlike/"+ receiver_id, // need to create this route
-            //     data: "",
+            //     url: route , // need to create this route
+            //     data: datastr,
             //     cache: false,
-            //     success: function (data) {
-                     
-                    
+            //     success: function (data , status) {
+            //             $('#showsearch').html(data);
             //     }
             // });
                  });
- });
+ });  

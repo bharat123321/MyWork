@@ -9,18 +9,18 @@
             }
         }); 
                     
-                  $('.showliked').click(function() {
+                  $('.liked').click(function() {
                     
                     receiver_id = $(this).attr('id');
-                   
+                    
                     $.ajax({
                 type: "get",
                 url: "showlike/"+ receiver_id, // need to create this route
                 data: "",
                 cache: false,
                 success: function (data) {
-                     
-                    
+                      $('.howareyou').html(data);    
+                      $(location).attr('href','{{url('showlike/')}}')             
                 }
             });
                  });

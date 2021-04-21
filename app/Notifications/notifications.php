@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Notifications;
-
+use App\User;
+use App\comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,15 +11,16 @@ use Illuminate\Notifications\Messages\MailMessage;
 class notifications extends Notification
 {
     use Queueable;
-        protected $thread;
+         protected $thread;
+        
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($thread)
+    public function __construct(comment $thread)
     {
-         $this->thread = $thread;
+          $this->thread = $thread;
     }
 
     /**
@@ -29,22 +31,22 @@ class notifications extends Notification
      */
     public function via($notifiable)
     {
-        return ['database','mail'];
+        return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+    // /**
+    //  * Get the mail representation of the notification.
+    //  *
+    //  * @param  mixed  $notifiable
+    //  * @return \Illuminate\Notifications\Messages\MailMessage
+    //  */
+    // public function toMail($notifiable)
+    // {
+    //     return (new MailMessage)
+    //                 ->line('The introduction to the notification.')
+    //                 ->action('Notification Action', url('/'))
+    //                 ->line('Thank you for using our application!');
+    // }
 
     /**
      * Get the array representation of the notification.
@@ -54,9 +56,11 @@ class notifications extends Notification
      */
     public function toDatabase($notifiable)
     {
+            
         return [
-             'repliedTime'=>\Carbon\Carbon::now()->toDateTimeString(),
-            'thread'=>$this->thread
+              'thread'=>$this->thread,
+              'user'=>$notifiable
+
         ];
     }
      
@@ -70,7 +74,7 @@ class notifications extends Notification
     public function toArray($notifiable)
     {
         return [
-             
+              
         ];
     }
 }

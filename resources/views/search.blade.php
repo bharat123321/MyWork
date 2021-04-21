@@ -56,7 +56,7 @@
                                 ?>
                                    <p> 
                                     
-                     <form method="post" action="/addFriend">
+                     <form method="get" action="/addFriend/{{$From_user->id}}">
                      {{csrf_field()}}
                
                             <!-- @foreach($From_user->post as $user_requested_post)              
@@ -82,6 +82,7 @@
 
            </div>
           <div class="well">
+            <h4 style="text-align: center;">No More</h4>
           </div>
         </div>
     </div>

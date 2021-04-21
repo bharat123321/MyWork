@@ -11,10 +11,11 @@ class comment extends Model
         'lastname',
         'comment',
         'user_id',
+         
         'post_id'
     );
 
-
+    
     public function replies(){
     	return $this->hasMany('App\Reply');
     }

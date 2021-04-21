@@ -23,4 +23,7 @@ return $this->belongsTo('App\User');
     public function story(){
       return $this->belongsTo('App\story');
     }
+     public function getlikes($id){
+      return 1;
+    }
 }

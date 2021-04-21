@@ -30,6 +30,10 @@ class HomeController extends Controller
         $user = User::where('id','!=',Auth::user()->id)->get();
         return view('home')->with('user',$user);
     }
+    public function indexabout()
+    {
+        return view('about');
+    }
     public function getMessage($id){
         //getting all messages for selected user
         $my_id = Auth::id();
