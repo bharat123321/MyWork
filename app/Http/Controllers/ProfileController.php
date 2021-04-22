@@ -85,15 +85,15 @@ class ProfileController extends Controller
     	return view('profile',array('user'=>Auth::user()));
     }
 public function update_profile(Request $request){
-	$avatar = $request->file('avatar'); 
-    if($request->hasFile('avatar')){
+ 
+  echo	$avatar = $request->file('my_profile'); 
+    if($request->hasFile('my_profile')){
      $filename = time() . '.' . $avatar->getClientOriginalExtension();	
        $avatar->move("uploads/avatar",$filename);
        $obj = Auth::user()->id;
          DB::table('users')->where('id',$obj)->update(['avatar'=>$filename]);
              }
-             
-          return back();
+              
  
 }
 
