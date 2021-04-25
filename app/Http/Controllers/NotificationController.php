@@ -23,13 +23,13 @@ class NotificationController extends Controller
         return 'success';
     }
     public function index(){
-       $check = auth()->user()->notifications()->orderBy('created_at','desc')->get();
+       // $check = auth()->user()->notifications()->orderBy('created_at','desc')->get();
          
             $notif = DB::table('notifies')->where('replies_user_id',Auth::user()->id)->orderBy('created_at','Asc')->get();
 
-           $check_notif_comment = DB::table('users')->leftJoin('notifies','notifies.commented_user_id','users.id')->where('replies_user_id',Auth::user()->id)->where('comment_status',1)->orderBy('notifies.created_at','desc')->get();
-             $check_notif_like = DB::table('users')->leftJoin('notifies','notifies.commented_user_id','users.id')->where('replies_user_id',Auth::user()->id)->where('like_status',1)->orderBy('notifies.created_at','desc')->get();
-              
+               $check_notif_comment = DB::table('users')->leftJoin('notifies','notifies.commented_user_id','users.id')->where('replies_user_id',Auth::user()->id)->where('comment_status',1)->orderBy('notifies.created_at','desc')->get();
+               $check_notif_like = DB::table('users')->leftJoin('notifies','notifies.commented_user_id','users.id')->where('replies_user_id',Auth::user()->id)->where('like_status',1)->orderBy('notifies.created_at','desc')->get();
+          
         return view('notify.checkNotification')->with('notification_comment',$check_notif_comment)->with('notification_like',$check_notif_like);
 
              

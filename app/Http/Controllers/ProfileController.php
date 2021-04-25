@@ -251,7 +251,7 @@ public function fetch_all_user_friend($id){
 }
 
  public function fetch_all_mutual_friend($id){
-   $check = DB::table('friendships')->where('user_requested',$id)->orWhere('acceptor',$id)->get();
+     $check = DB::table('friendships')->where('status',1)->where('user_requested',$id)->orWhere('acceptor',$id)->get();
              foreach($check as $check){
                if($check->user_requested != $id){
                 $collection1[] = $check->user_requested;
@@ -276,7 +276,8 @@ public function fetch_all_user_friend($id){
            }
                 
                 $mutual_friend = array_intersect($collection1, $collection2);
-                 return view('friend.fetch_all_mutual_friend')->with('mutual_friend',$mutual_friend)->with('id',$id);
+
+           return view('friend.fetch_all_mutual_friend')->with('mutual_friend',$mutual_friend)->with('id',$id);
  }
 
 
@@ -287,7 +288,7 @@ public function friend_info($id){
       // $posted =  Post::where('user_id',$id)->where('tag_name',0)->orWhere('tag_name','!=',0)->orderBy('created_at','desc')->get();
   $posted=  Post::where('tag_name',0)->orWhere('tag_name','!=',0)->orderBy('created_at','desc')->get();
 
-  $total_friend_count =  DB::table('friendships')->where('user_requested',$id)->orWhere('acceptor',$id)->where('status','!=',null)->count(); 
+    $total_friend_count =  DB::table('friendships')->where('status','!=',null)->where('user_requested',$id)->orWhere('acceptor',$id)->count(); 
  
       $gets = friendship::get();
     $emp = DB::table('friendships')->where('status',1)->where('user_requested',$id)->orWhere('acceptor',$id)->first();
@@ -297,14 +298,14 @@ public function friend_info($id){
                  
              if($emp == true and $gets == true) {
                 
-                    $vs = DB::table('friendships')->where('status',1)->where('user_requested',$id)->orWhere('acceptor',$id)->get();
+                     $vs = DB::table('friendships')->where('status',1)->where('user_requested',$id)->orWhere('acceptor',$id)->get();
                 
   foreach($vs as $vs){
 //user_requested
      $user1Friends[]= 0;
      if($vs->user_requested != $id){
                
-                       $cd = DB::table('friendships')->where('status',1)->where('acceptor',Auth::user()->id)->orWhere('user_requested',Auth::user()->id)->get();
+                        $cd = DB::table('friendships')->where('status',1)->where('acceptor',Auth::user()->id)->orWhere('user_requested',Auth::user()->id)->get();
                foreach($cd as $cd){
                    if($cd->user_requested != Auth::user()->id){
                     if($cd->user_requested != $id){
@@ -323,7 +324,7 @@ public function friend_info($id){
       
      if($vs->acceptor != $id){
           
-                      $cd = DB::table('friendships')->where('status',1)->where('acceptor',Auth::user()->id)->orWhere('user_requested',Auth::user()->id)->get();
+                       $cd = DB::table('friendships')->where('status',1)->where('acceptor',Auth::user()->id)->orWhere('user_requested',Auth::user()->id)->get();
                 foreach($cd as $cd){
                    if($cd->user_requested != Auth::user()->id){
                     if($cd->user_requested != $id){
@@ -341,10 +342,11 @@ public function friend_info($id){
   }
 
   
- 
+               
+             
             // echo $gets->user_requested;
-             $vd = DB::table('friendships')->where('status',1)->where('acceptor',$id)->orWhere('user_requested',$id)->get();
-          
+               $vd = DB::table('friendships')->where('status',1)->where('user_requested',$id)->orWhere('acceptor',$id)->get();
+             $user2Friends[] = 0;
                  foreach($vd as $vd){
                   if($vd->user_requested != Auth::user()->id){ 
                     if($vd->user_requested != $id){
@@ -358,16 +360,21 @@ public function friend_info($id){
                   }
                   }
                 }
+            
           $val =   array_intersect($user1Friends, $user2Friends);
-             $mutual_friend =  array_unique($val);
-             
+ 
+           // $mutual_friend =  array_unique($val);
+            
+           $count_mutual_friend =  array_filter($user2Friends);
+
+            
             // $vn = array_count_values($mutual_friend);
                       
-         return view('posts.showdetail_Of_friend')->with('users',$users)->with('posted',$posted)->with('total_friend_count',$total_friend_count)->with('post_count',$post_count)->with('count_mutual',$mutual_friend)->with('id',$id);        
+         return view('posts.showdetail_Of_friend')->with('users',$users)->with('posted',$posted)->with('total_friend_count',$total_friend_count)->with('post_count',$post_count)->with('count_mutual',$count_mutual_friend)->with('id',$id);        
           }
           else{
                 $mutual_friend = 0;
-             return view('posts.showdetail_Of_friend')->with('users',$users)->with('posted',$posted)->with('post_count',$post_count)->with('total_friend_count',$total_friend_count)->with('count_mutual',$mutual_friend)->with('id',$id);
+             return view('posts.showdetail_Of_friend')->with('users',$users)->with('posted',$posted)->with('post_count',$post_count)->with('total_friend_count',$total_friend_count)->with('count_mutual',$count_mutual_friend)->with('id',$id);
           }
 
 

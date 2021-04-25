@@ -430,7 +430,7 @@ width: 100px;
 
 
 /* Set a style for all buttons */
-button {
+/*button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -438,7 +438,7 @@ button {
     border: none;
     cursor: pointer;
     width: 10%;
-}
+}*/
 
 button:hover {
     opacity: 0.8;

@@ -110,7 +110,7 @@ class postController extends Controller
            $post->user_id = Auth::user()->id;
            $post->post_option = $request->post_option;  
            if($request->tag_names  == ''){ 
-             $post->tag_name = 0;
+              $post->tag_name = 0;
          }
            
            
@@ -172,7 +172,8 @@ class postController extends Controller
             
             }
           elseif($request->tag_names  != ''){ 
-               $post->tag_name = $request->tag_names;
+            $tag_names = implode(",", $request->tag_names);
+                $post->tag_name = $tag_names;
 
          } 
           
@@ -180,7 +181,8 @@ class postController extends Controller
                 echo 'skdj';
              }
               
-              $post->save();
+              
+                $post->save();
 
         // if ($request->tag_names != '') {
         //      $check = implode(",", $request->tag_names);

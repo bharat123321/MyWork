@@ -20,8 +20,8 @@ class CommentController extends Controller
      */
     public function index($id)
     { 
-            
-         $user = Auth::user()->id;
+             
+        //  $user = Auth::user()->id;
          $post_id =Post::findorFail($id);   
          $comment = comment::all();
             $showcomment = DB::table('users')->leftJoin('comments','comments.user_id','users.id')->where('post_id',$id)->get();
@@ -77,7 +77,7 @@ class CommentController extends Controller
              $comment->post_id = $request->post_id;
              $comment->post_body = $request->post_body;
              
-              $comment->save();
+              // $comment->save();
 
            $sc = DB::table('posts')->where('id',$request->post_id)->where('user_id','!=',Auth::user()->id)->first();
                 if($sc == true){
@@ -115,8 +115,22 @@ class CommentController extends Controller
              $comment->user_id = Auth::user()->id;
              $comment->post_id = $request->post_id;
              $comment->post_body = $request->post_body;
-             
-              $comment->save();
+            
+            $comment->save();
+                $sc = DB::table('posts')->where('id',$request->post_id)->where('user_id','!=',Auth::user()->id)->first();
+                if($sc == true){
+              $notif = new notify;
+              $notif->commented_user_id = Auth::user()->id;
+              $notif->replies_user_id = $request->user_id;
+              $notif->post_id = $request->post_id;
+              $notif->comment_status = 1;
+              $notif->firstname = $request->firstname;
+              $notif->lastname = $request->lastname;
+              $notif->post_body =$request->post_body;
+
+            $notif->save();
+   }
+   
       return back()->with('success','Comment Added successfully..!');
  
          }

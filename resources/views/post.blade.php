@@ -35,8 +35,10 @@
                 </div>
             <img src="/uploads/avatar/{{$user->avatar}}" style="height:50px;width:50px; border-radius: 10px 10px 10px;margin-top:8px; margin-left:5px;">
              <select name="post_option">
-               <option>public</option>
-               <option>private</option>
+               <option> public</option>
+             
+               <option> private</option>
+            
              </select>                
                      
                   <wbr>  

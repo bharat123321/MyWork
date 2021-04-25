@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
              $table->integer('count_video')->nullable();
             $table->longText('image')->nullable() ;
             $table->longText('tag_name')->nullable();
+            $table->integer('block')->nullable();
             $table->string('post_option');
             $table->timestamps();
         });
